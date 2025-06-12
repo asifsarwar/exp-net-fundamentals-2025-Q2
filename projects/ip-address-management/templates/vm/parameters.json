@@ -102,7 +102,7 @@
             "value": "adminuser"
         },
         "adminPassword": {
-            "value": null
+            "value": "Testing123456!"
         },
         "patchMode": {
             "value": "AutomaticByPlatform"
