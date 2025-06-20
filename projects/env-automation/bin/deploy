@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# ======== Configuration ========
+
+STACK_NAME="MyVPCStack"
+TEMPLATE_FILE="template.yaml"
+
+# Parameter values (you can change them here or pass via CLI)
+VPC_CIDR="10.200.123.0/24"
+PUBLIC_SUBNET_CIDR="10.200.123.0/25"
+PRIVATE_SUBNET_CIDR="10.200.123.128/25"
+AZ="us-east-1a"
+
+# ======== Deploy Stack ========
+
+echo "Deploying CloudFormation stack: $STACK_NAME"
+
+aws cloudformation deploy \
+  --stack-name "$STACK_NAME" \
+  --template-file "$TEMPLATE_FILE" \
+  --capabilities CAPABILITY_NAMED_IAM \
+  --parameter-overrides \
+    VpcCIDR="$VPC_CIDR" \
+    PublicSubnetCIDR="$PUBLIC_SUBNET_CIDR" \
+    PrivateSubnetCIDR="$PRIVATE_SUBNET_CIDR" \
+    AZ="$AZ"
+
+if [ $? -eq 0 ]; then
+  echo "✅ Stack deployed successfully!"
+else
+  echo "❌ Failed to deploy the stack."
+fi
